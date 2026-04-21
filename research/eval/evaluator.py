@@ -30,8 +30,11 @@ def _target(x: np.ndarray) -> np.ndarray:
     return np.sin(x) + 0.3 * x
 
 
-def _test_points(seed: int, n: int = 500) -> tuple[np.ndarray, np.ndarray]:
-    rng = np.random.default_rng(int(seed))
+def _test_points(seed: int, n: int = 10000) -> tuple[np.ndarray, np.ndarray]:
+    # Large, seed-dependent test set so MSE estimates are stable across seeds
+    # (< 2% spread on the baseline).  Seeds still produce different draws —
+    # this is a seed-robustness check, not a fixed oracle.
+    rng = np.random.default_rng(int(seed) + 10_000)
     x = rng.uniform(-5.0, 5.0, size=n)
     x.sort()
     y = _target(x)
