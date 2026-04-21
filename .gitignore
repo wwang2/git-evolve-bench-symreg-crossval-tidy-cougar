@@ -132,3 +132,6 @@ scratch/
 *.tmp
 *.bak
 *.log
+
+# keep committed training data for this benchmark
+!research/eval/train.npz
